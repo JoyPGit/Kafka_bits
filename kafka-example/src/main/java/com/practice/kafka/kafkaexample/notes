@@ -1,0 +1,21 @@
+    // same as Rest Template
+    KafkaTemplate<String, String> kafkaTemplate;
+
+    @GetMapping("/publish/{message}")
+    public String publish(@PathVariable ("message") final String msg){
+        kafkaTemplate.send(TOPIC, msg);
+        return "published successfully";
+    }
+
+    kafka uses zookeeper, kafka config
+    download kafka binary, open in terminal and run zookeeper command to start a zookeeper instance
+    bin/zookeeper-server-start.sh config/zookeeper.properties
+
+    once server is up, now kafka topic can be created
+    bin/kafka-topics.sh --create --topic my-kafka-topic --zookeeper localhost:2181 --partitions 3
+    --replication-factor 2 --topic
+
+    https://www.sohamkamani.com/blog/2017/11/22/how-to-install-and-run-kafka/
+
+    copy as many server files as many brokers you want
+    replication factor can't be larger than no of brokers
